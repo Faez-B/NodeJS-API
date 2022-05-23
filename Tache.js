@@ -3,7 +3,7 @@ const dbTaches = {
     memoryDb: new Map(),
 
     insert: function (obj) {
-      this.memoryDb.set(this.id++, obj);
+      this.memoryDb.set(this.id++, {...obj, faite : false} );
     },
 
     getAll: function () {
