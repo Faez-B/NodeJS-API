@@ -3,7 +3,7 @@ const db = require('../Tache');
 const request = require('supertest');
 // jest.setTimeout(15000);
 
-describe('Section 1', () => {
+describe('Toutes les routes de la section une', () => {
     it("should return all tâches", async () => {
         const result = await request(app)
             .get("/taches")
@@ -14,7 +14,6 @@ describe('Section 1', () => {
     //     const result = await request(app)
     //         .get("/taches/1")
     //         .expect(200);
-
     //     expect(db.memoryDb.get(1)).toEqual(obj);
     // })
     // it("should not return any object", async (obj) => {
