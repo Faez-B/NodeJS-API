@@ -8,7 +8,7 @@ const port = process.env.PORT;
 
 app.get("/taches", (req, res) =>{
 
-    res.status(200).send(db);
+    res.status(200).send(db.getAll());
 
 })
 
