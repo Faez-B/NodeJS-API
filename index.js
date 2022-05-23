@@ -3,12 +3,25 @@ require('express-async-errors');
 const express = require('express');
 const db = require('./Tache');
 const Joi = require('joi');
+const jwt = require('jsonwebtoken');
 
 const app = express();
 
 app.use(express.json());
 
 const port = process.env.PORT;
+
+const userSchemaJoi = Joi.object({
+    email: Joi.string().required(),
+	username: Joi.string().min(2).max(50),
+	motdepasse: Joi.string().min(2).max(100).required(),
+});
+
+const tacheSchemaJoi = Joi.object({
+    description: Joi.string().min(2).max(100).required(),
+	faite: Joi.boolean(),
+	creerPar: Joi.number().required(),
+});
 
 app.get("/taches", (req, res) =>{
 
