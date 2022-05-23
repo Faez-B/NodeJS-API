@@ -15,7 +15,8 @@ app.get("/taches", (req, res) =>{
 app.get("/tache/:id", (req, res) =>{
     const id = parseInt(req.params.id);
 
-    res.status(200).send(db.getOneById(id));
+    if(db.getOneById(id)) res.send(db.getOneById(id));
+    else throw new Error ("Tache inconnue");
 })
 
 if (process.env.NODE_ENV !== 'test') {
