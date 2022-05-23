@@ -41,6 +41,10 @@ const tacheSchemaMongoose = new mongoose.Schema({
 	creerPar: Number,
 });
 
+const Tache = mongoose.model('Tache', tacheSchemaMongoose);
+const User = mongoose.model('User', userSchemaMongoose);
+
+
 // TACHES
 
 app.get("/taches", (req, res) =>{
@@ -52,7 +56,11 @@ app.get("/taches", (req, res) =>{
 app.get("/tache/:id", (req, res) =>{
     const id = parseInt(req.params.id);
 
-    if(db.getOneById(id)) res.send(db.getOneById(id));
+    if(db.getOneById(id)) {
+        res.send(db.getOneById(id));
+        // Mongo
+
+    }
     else {
         res.status(404).send({});
         throw new Error ("Tache inconnue");
@@ -60,12 +68,17 @@ app.get("/tache/:id", (req, res) =>{
         
 })
 
-app.post("/taches", (req, res) =>{
+app.post("/taches", async(req, res) =>{
     const payload = req.body;
 
     db.insert(payload);
 
     res.status(201).send({...req.body, faite : false});
+    // Mongo
+    const tache = new Tache(payload);
+    try {
+        const resultat = await tache.save()
+    } catch (e) {}
 })
 
 app.put("/tache/:id", (req, res) =>{
@@ -135,6 +148,11 @@ app.post("/signup", async (req, res) =>{
 			email: login.email,
             username: login.username
 		})
+        // Mongo
+        const user = new User(data);
+        try {
+            const resultat = await user.save()
+        } catch (e) {}
 	}
 })
 
