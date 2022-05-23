@@ -20,6 +20,14 @@ const dbTaches = {
       } else {
         throw new Error(`Key ${id} doesn't not exists`);
       }
+    },
+
+    delete(id) {
+      if (this.memoryDb.get(id)) {
+        this.memoryDb.delete(id);
+      } else {
+        throw new Error(`Key ${id} doesn't not exists`);
+      }
     }
 };
   

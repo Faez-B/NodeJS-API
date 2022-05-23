@@ -43,6 +43,13 @@ app.put("/tache/:id", (req, res) =>{
     res.status(201).send(db.getOneById(id));
 })
 
+app.delete("/tache/:id", (req, res) =>{
+    const id = parseInt(req.params.id);
+
+    db.delete(id);
+    res.status(200).send(db.getAll());
+})
+
 
 
 
