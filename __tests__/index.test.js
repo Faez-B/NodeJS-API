@@ -36,4 +36,12 @@ describe('Section 1', () => {
 
     //     expect(db.memoryDb.get(id)).toMatchObject(inserted);
     // })
+
+    // it("should return delete tache coreesponding to id", async (obj) => {
+    //     const result = await request(app)
+    //         .delete("/tache/3")
+    //         .expect(200);
+
+    //     expect((db.memoryDb.getAll()).length).toBe(2);
+    // })
 })
