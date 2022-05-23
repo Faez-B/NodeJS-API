@@ -12,6 +12,22 @@ const dbTaches = {
 
     getOneById: function (id) {
       return this.memoryDb.get(id);
+    },
+
+    update(id, obj) {
+      if (this.memoryDb.get(id)) {
+        this.memoryDb.set(id, obj);
+      } else {
+        throw new Error(`Key ${id} doesn't not exists`);
+      }
+    },
+
+    delete(id) {
+      if (this.memoryDb.get(id)) {
+        this.memoryDb.delete(id);
+      } else {
+        throw new Error(`Key ${id} doesn't not exists`);
+      }
     }
 };
   

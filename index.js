@@ -1,5 +1,6 @@
-const express = require('express');
 require('dotenv').config();
+require('express-async-errors');
+const express = require('express');
 const db = require('./Tache');
 
 const app = express();
@@ -18,7 +19,11 @@ app.get("/tache/:id", (req, res) =>{
     const id = parseInt(req.params.id);
 
     if(db.getOneById(id)) res.send(db.getOneById(id));
-    else throw new Error ("Tache inconnue");
+    else {
+        res.status(404).send({});
+        throw new Error ("Tache inconnue");
+    } 
+        
 })
 
 app.post("/taches", (req, res) =>{
@@ -28,6 +33,30 @@ app.post("/taches", (req, res) =>{
 
     res.status(201).send({...req.body, faite : false});
 })
+
+app.put("/tache/:id", (req, res) =>{
+    const id = parseInt(req.params.id);
+    const payload = req.body;
+
+    const actuel_faite = (db.getOneById(id)).faite ;
+
+    db.update(id, {...payload, faite : actuel_faite});
+    res.status(201).send(db.getOneById(id));
+})
+
+app.delete("/tache/:id", (req, res) =>{
+    const id = parseInt(req.params.id);
+
+    db.delete(id);
+    res.status(200).send(db.getAll());
+})
+
+
+
+
+
+
+
 
 if (process.env.NODE_ENV !== 'test') {
     app.listen(port, () => {
