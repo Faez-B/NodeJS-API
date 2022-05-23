@@ -3,12 +3,16 @@ const dbTaches = {
     memoryDb: new Map(),
 
     insert: function (obj) {
-      this.memoryDb.set(this.id++, obj);
+      this.memoryDb.set(this.id++, {...obj, faite : false} );
     },
 
     getAll: function () {
       return Object.fromEntries(this.memoryDb);
     },
+
+    getOneById: function (id) {
+      return this.memoryDb.get(id);
+    }
 };
   
 dbTaches.insert({ 
