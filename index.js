@@ -6,6 +6,7 @@ const Joi = require('joi');
 const jwt = require('jsonwebtoken');
 const bcrypt = require("bcrypt");
 const users = require('./Users');
+const dbUsers = require('./Users');
 const app = express();
 
 app.use(express.json());
@@ -94,8 +95,32 @@ app.post("/signin", async (req, res) =>{
     res.header("x-auth-token", token).status(200).send({ username: user.username });
 })
 
+app.post("/signup", async (req, res) =>{
+    const data = req.body;
+    
+    const { value: login, error } = userSchemaJoi.validate(data);
+    
+    if (error) res.status(400).send({ erreur : error.details[0].message });
+    
+    const {found} = users.findByEmail(login.email);
+    
+    if (found) {
+        return res.status(400).send({ erreur: "Email déjà utilisé, veuillez vous connecter" });
+    }
+    else {
+		const salt = await bcrypt.genSalt(10);
+		const mdpHash = await bcrypt.hash(login.motdepasse, salt);
+		login.motdepasse = mdpHash;
+		
+		dbUsers.insert(login);
 
-
+		// 201 : PUT, POST
+		res.status(201).json({
+			email: login.email,
+            username: login.username
+		})
+	}
+})
 
 
 
