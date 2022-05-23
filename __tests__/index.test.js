@@ -1,6 +1,7 @@
 const app = require('../index');
 const db = require('../Tache');
 const request = require('supertest');
+// jest.setTimeout(15000);
 
 describe('Section 1', () => {
     it("should return all tâches", async () => {
@@ -11,7 +12,7 @@ describe('Section 1', () => {
 
     // it("should return tache matching id", async (obj) => {
     //     const result = await request(app)
-    //         .get("/tache/1")
+    //         .get("/taches/1")
     //         .expect(200);
 
     //     expect(db.memoryDb.get(1)).toEqual(obj);
@@ -24,7 +25,7 @@ describe('Section 1', () => {
     //     expect(db.memoryDb.get(1)).not.toEqual(obj);
     // })
 
-    
+
     // it("should return inserted object", async (obj) => {
     //     const inserted = { description: "New Tache", faite : false};
 
