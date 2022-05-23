@@ -12,6 +12,12 @@ app.get("/taches", (req, res) =>{
 
 })
 
+app.get("/tache/:id", (req, res) =>{
+    const id = parseInt(req.params.id);
+
+    res.status(200).send(db.getOneById(id));
+})
+
 if (process.env.NODE_ENV !== 'test') {
     app.listen(port, () => {
         console.log("Listening on port " + port);

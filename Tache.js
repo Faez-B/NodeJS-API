@@ -9,6 +9,10 @@ const dbTaches = {
     getAll: function () {
       return Object.fromEntries(this.memoryDb);
     },
+
+    getOneById: function (id) {
+      return this.memoryDb.get(id);
+    }
 };
   
 dbTaches.insert({ 
