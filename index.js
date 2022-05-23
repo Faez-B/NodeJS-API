@@ -7,6 +7,10 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require("bcrypt");
 const users = require('./Users');
 const dbUsers = require('./Users');
+const mongoose = require('mongoose');
+
+mongoose.connect(`mongodb://localhost:27017/${process.env.BDD}`);
+
 const app = express();
 
 app.use(express.json());
@@ -23,6 +27,18 @@ const tacheSchemaJoi = Joi.object({
     description: Joi.string().min(2).max(100).required(),
 	faite: Joi.boolean(),
 	creerPar: Joi.number().required(),
+});
+
+const userSchemaMongoose = new mongoose.Schema({
+    email: String,
+	username: String,
+	motdepasse: String,
+});
+
+const tacheSchemaMongoose = new mongoose.Schema({
+    description: String,
+	faite: Boolean,
+	creerPar: Number,
 });
 
 // TACHES
