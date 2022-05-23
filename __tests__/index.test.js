@@ -10,37 +10,37 @@ describe('Toutes les routes de la section une', () => {
             .expect(200);
     })
 
-    // it("should return tache matching id", async (obj) => {
-    //     const result = await request(app)
-    //         .get("/taches/1")
-    //         .expect(200);
-    //     expect(db.memoryDb.get(1)).toEqual(obj);
-    // })
-    // it("should not return any object", async (obj) => {
-    //     const result = await request(app)
-    //         .get("/tache/1000")
-    //         .expect(404);
+    it("should return tache matching id", async (obj) => {
+        const result = await request(app)
+            .get("/taches/1")
+            .expect(200);
+        expect(db.memoryDb.get(1)).toEqual(obj);
+    })
+    it("should not return any object", async (obj) => {
+        const result = await request(app)
+            .get("/tache/1000")
+            .expect(404);
 
-    //     expect(db.memoryDb.get(1)).not.toEqual(obj);
-    // })
+        expect(db.memoryDb.get(1)).not.toEqual(obj);
+    })
 
 
-    // it("should return inserted object", async (obj) => {
-    //     const inserted = { description: "New Tache", faite : false};
+    it("should return inserted object", async (obj) => {
+        const inserted = { description: "New Tache", faite : false};
 
-    //     const result = await request(app)
-    //         .post("/taches")
-    //         .send(inserted)
-    //         .expect(201);
+        const result = await request(app)
+            .post("/taches")
+            .send(inserted)
+            .expect(201);
 
-    //     expect(db.memoryDb.get(id)).toMatchObject(inserted);
-    // })
+        expect(db.memoryDb.get(id)).toMatchObject(inserted);
+    })
 
-    // it("should return delete tache coreesponding to id", async (obj) => {
-    //     const result = await request(app)
-    //         .delete("/tache/3")
-    //         .expect(200);
+    it("should return delete tache coreesponding to id", async (obj) => {
+        const result = await request(app)
+            .delete("/tache/3")
+            .expect(200);
 
-    //     expect((db.memoryDb.getAll()).length).toBe(2);
-    // })
+        expect((db.memoryDb.getAll()).length).toBe(2);
+    })
 })
